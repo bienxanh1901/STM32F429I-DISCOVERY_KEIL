@@ -17,9 +17,6 @@ const TickType_t xDelay100 = 100 / portTICK_PERIOD_MS;
 void app_main(void *arg)
 {
     
-    LED_On (0U);
-    vTaskDelay (xDelay500);
-    LED_Off (0U);
     xTaskCreate(BUT_handler, "Button handler", 64, NULL, tskIDLE_PRIORITY+1, &tid_BUT_handler);
     xTaskCreate(LED_handler, "LED handler", 64, NULL, tskIDLE_PRIORITY+1, &tid_LED_handler);
     
@@ -30,7 +27,7 @@ void app_main(void *arg)
 
 void LED_handler(void *arg)
 {
-    uint32_t active_flag = 1U;
+    uint8_t active_flag = 1U;
 
     for (;;) {
         if (xTaskNotifyWait (0, 0x0001, NULL, xDelay100) == pdTRUE ) {
@@ -48,8 +45,8 @@ void LED_handler(void *arg)
 
 void BUT_handler(void *arg)
 {
-    uint32_t last;
-    uint32_t state;
+    uint8_t last;
+    uint8_t state;
 
     for (;;) {
         state = (Buttons_GetState () & 1U);           // Get pressed button state

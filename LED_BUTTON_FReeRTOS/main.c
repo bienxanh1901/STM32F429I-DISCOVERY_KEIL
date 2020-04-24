@@ -208,12 +208,6 @@ static void Error_Handler(void)
   }
 }
 
-void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed char *pcTaskName )
-{
-    LED_On (1U);
-
-    for( ;; );
-}
 #ifdef  USE_FULL_ASSERT
 
 /**
